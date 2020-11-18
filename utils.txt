@@ -1,0 +1,2 @@
+gettimeofday() et settimeofday() renvoient 0 s'ils réussissent, ou -1 s'ils échouent, auquel cas errno est renseignée en conséquence.  
+
