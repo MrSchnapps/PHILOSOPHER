@@ -12,111 +12,114 @@
 
 #include "philosopher.h"
 
-int		parse_args(int argc, char **argv, t_glob *g)
+/*
+** TODO
+** Attention aux msg à afficher (pt enlever left / right hands)
+**
+*/
+int		checker_max_meals(t_glob *g)
 {
-	if (argc < 5 || argc > 6)
-		return (printerr("Invalid number of arguments", EXIT_FAILURE));
-	if (!(g->nop = ft_atoi(argv[1])) || !(g->ttd = ft_atoi(argv[2])) 
-		|| !(g->tte = ft_atoi(argv[3])) || !(g->tts = ft_atoi(argv[4])))
-		return (printerr("Invalid value in arguments", EXIT_FAILURE));
-	if (argc == 5)
-		g->notepme = -1;
-	else
+	if (g->meals_max_count >= g->nop)
 	{
-		if (!(g->notepme = ft_atoi(argv[5])))
-			return (printerr("Invalid value in arguments", EXIT_FAILURE));
+		pthread_mutex_lock(&g->print_m);
+		if (ft_print_all_meals(g))
+			return (0); //refaire ce msg d'erreur
+		//pthread_mutex_unlock(&p->glob->print_m);
+		g->is_die = 1;
+		return (1);
 	}
 	return (0);
 }
 
-int		eat_func(t_phil *p)
+void	*checker_death(void *arg)
 {
-	long long unsigned int cur_time;
-
-	if (get_time(&cur_time) < 0)
-		return (printerr("Time error", TIMERR));
-	ft_putnbr_fd(cur_time - p->glob->time_start, 1);
-	ft_putstr_fd("x se met à manger.\n", 1);
-	return (0);
-}
-
-void	*philo(void *arg)
-{
-	t_phil *p;
+	t_phil					*p;
+	long long unsigned int 	cur_time;
 
 	p = (t_phil *)arg;
 	while (1)
 	{
-		/*pthread_mutex_lock(&p->glob->print_m);
-		eat_func(p);
-		pthread_mutex_unlock(&p->glob->print_m);*/
-		ft_print(p, " is eating.\n");
-		usleep(p->glob->tte);
-		ft_print(p, " is sleeping.\n");
-		
-
-		/*pthread_mutex_lock(&p->glob->print_m);
-		ft_putstr_fd("le philosophe numero x se met à dormir.\n", 1);
-		pthread_mutex_unlock(&p->glob->print_m);*/
-		
-		usleep(p->glob->tts);
-		ft_print(p, " is thinking.\n");
-		/*pthread_mutex_lock(&p->glob->print_m);
-		ft_putstr_fd("le philosophe numero x se met à penser.\n", 1);
-		pthread_mutex_unlock(&p->glob->print_m);*/
-		
+		//mettre mutex
+		if (get_time(&cur_time, p->glob->time_start))
+			return ((void *)TIMERR);
+		if (!p->is_eating && cur_time > (p->glob->ttd + p->last_eat))
+		{
+			pthread_mutex_lock(&p->glob->print_m);
+			ft_print(p, " is DIE !!!!!!!!!!!!!!!!!!!!"); //modif message
+			p->glob->is_die = 1;
+			//pthread_mutex_unlock(&p->glob->print_m);		
+			return (NULL);
+		}
+		if (p->glob->notepme > 0)
+			if (checker_max_meals(p->glob))
+				return (NULL);
+		usleep(1000);
 	}
-	return (0);
+	return (NULL);
 }
 
 int		starting_threads(t_glob *g)
 {
 	int		i;
-	int		err;
 	t_phil	*p;
 
 	i = 0;
 	while (i < g->nop)
-	{
+	{	
 		g->phil[i].order = i + 1;
 		p = (void *)&g->phil[i];
-		//printf("\ntest |%d|\n", p->glob->tts);
-		if ((err = pthread_create(&(g->tab_th[i]), NULL, philo, p)))
-			return (err);
-		i++;
-	}
-	i = 0;
-	while (i < g->nop)
-	{
-		pthread_join(g->tab_th[i], NULL);
+		if (g->notepme < 0)
+		{
+			if (pthread_create(&g->tab_th[i], NULL, &states, p))
+				return (printerr(THDERR));
+			
+		}
+		else
+		{
+			printf("\ntest1\n");
+			if (pthread_create(&g->tab_th[i], NULL, &states_max_eat, p))
+				return (printerr(THDERR));
+			printf("\ntest2\n");
+		}
+		pthread_detach(g->tab_th[i]);
 		usleep(100);
+		printf("\ntest3\n");
 		i++;
 	}
 	return (0);
 }
 
-int		ft_init(t_glob *g)
+int		parse_args(int argc, char **argv, t_glob *g)
 {
-	int i;
-
-	i = 0;
-	g->tab_th = NULL;
-	if (!(g->phil = (t_phil *)malloc(g->nop * sizeof(t_phil))))
-		return (printerr("Memory error", MERR));
-	while (i < g->nop)
+	/*
+	** a enlever attention
+	** -----------------------
+	*/
+	if (argc == 2)
 	{
-		g->phil[i].glob = g;
-		i++;
+		g->nop = 5;
+		g->ttd = 4000;
+		g->tte = 4000;
+		g->tts = 4000;
+		g->notepme = 3;
 	}
-	if (!(g->tab_th = (pthread_t *)malloc(g->nop * sizeof(pthread_t))))
-		return (printerr("Memory error", MERR));
-	if (get_time(&g->time_start) < 0)
-		return (TIMERR);
-	pthread_mutex_init(&g->print_m, NULL);
+	else
+	{ // ---------------------
+		if (argc < 5 || argc > 6)
+			return (printerr(INVNB));
+		if (!(g->nop = ft_atoi(argv[1])) || !(g->ttd = ft_atoi(argv[2])) 
+			|| !(g->tte = ft_atoi(argv[3])) || !(g->tts = ft_atoi(argv[4])))
+			return (printerr(INVVAL));
+		if (argc == 5)
+			g->notepme = -1;
+		else
+		{
+			if ((g->notepme = ft_atoi(argv[5])) <= 0)
+				return (printerr(INVVAL));
+		}
+	} // --------------
 	return (0);
 }
-
-
 
 /*
 ** TODO
@@ -124,9 +127,9 @@ int		ft_init(t_glob *g)
 //printf("\ntest\n");
 //micro =  10^-6
 //milli =  10^^-3
-//Convertir l'entree en mili -> micro pour usleep (/ 1000 askip)
 //modif putstr endl etc dans mylib
 // verif si il faut faire gettime au tout debut pour le time_start
+
 
 int		main(int argc, char **argv)
 {
@@ -134,11 +137,13 @@ int		main(int argc, char **argv)
 	t_glob		g;
 
 	if (parse_args(argc, argv, &g))
-		return (free_all(&g, EXIT_FAILURE));
+		return (EXIT_FAILURE);
 	if (ft_init(&g))
 		return (EXIT_FAILURE);
 	if ((err = starting_threads(&g)))
 		return (free_all(&g, err));
+	while (!g.is_die) //&& g.meals_max_count < g.notepme)  //meals max count a -2 ou 0 merci
+		usleep(1000);
 	free_all(&g, 0);
 	return (0);
 }

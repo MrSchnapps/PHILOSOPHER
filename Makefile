@@ -14,7 +14,8 @@ NAME = philo
 HEADER_PATH = ./includes
 LIB_PATH = ./lib/libft.a
 LIB_REPO_PATH = ./lib
-SRCS = srcs/main.c srcs/ft_time.c srcs/ft_error.c srcs/ft_free.c srcs/ft_print.c
+SRCS = srcs/main.c srcs/ft_time.c srcs/ft_utils.c srcs/ft_print.c srcs/ft_init.c \
+		srcs/ft_states.c srcs/ft_routines.c
 OBJS = $(SRCS:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
@@ -25,7 +26,7 @@ all: libft_make $(NAME)
 
 $(NAME):	$(OBJS)
 			@echo "Compiling $@"
-			@$(CC) $(CFLAGS) $(OBJS) $(LIB_PATH) -o $@ -I $(HEADER_PATH)
+			@$(CC) $(CFLAGS) $(OBJS) $(LIB_PATH) -o $@ -I $(HEADER_PATH) -lpthread
 			@echo "Success"
 .c.o:
 	@echo "Compiling $@"
