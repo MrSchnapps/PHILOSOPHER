@@ -17,9 +17,11 @@ int		parse_args(int argc, char **argv, t_glob *g)
 	if (argc < 5 || argc > 6)
 		return (printerr(INVNB));
 	if ((g->nop = ft_atoi(argv[1])) < 2 
-		|| (g->ttd = ft_atoi(argv[2])) < 1
-		|| (g->tte = ft_atoi(argv[3])) < 1
-		|| (g->tts = ft_atoi(argv[4])) < 1)
+		|| (g->ttd = ft_atoi(argv[2])) < 60
+		|| (g->tte = ft_atoi(argv[3])) < 60
+		|| (g->tts = ft_atoi(argv[4])) < 60)
+		return (printerr(INVVAL));
+	if (g->nop > 200)
 		return (printerr(INVVAL));
 	if (argc == 5)
 		g->notepme = -1;
