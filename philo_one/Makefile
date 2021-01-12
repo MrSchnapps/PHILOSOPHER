@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME = philo_one
 HEADER_PATH = ./includes
 SRCS = srcs/main.c srcs/ft_utils.c srcs/ft_print.c srcs/ft_init.c \
 		srcs/ft_states.c srcs/ft_lib.c
