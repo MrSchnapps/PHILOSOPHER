@@ -12,14 +12,14 @@
 
 #include "philosopher.h"
 
-int		checker_max_meals(t_glob *g)
+int		checker_max_meals(t_phil *p)
 {
-	if (g->meals_max_count >= g->nop)
+	if (p->glob->meals_max_count >= p->glob->nop)
 	{
-		pthread_mutex_lock(&g->print_m);
-		if (ft_print_all_meals(g))
+		pthread_mutex_lock(&p->glob->print_m);
+		if (ft_print_end(p, 2))
 			return (0);
-		g->is_die = 1;
+		p->glob->is_die = 1;
 		return (1);
 	}
 	return (0);
@@ -37,15 +37,19 @@ void	*checker_death(void *arg)
 			return ((void *)TIMERR);
 		if (!p->is_eating && cur_time > (p->glob->ttd + p->last_eat))
 		{
-			pthread_mutex_lock(&p->glob->print_m);
-			ft_print(p, "  died");
-			p->glob->is_die = 1;		
-			return (NULL);
+			p->glob->die_tester = 1;
+			if (!p->is_eating)
+			{
+				pthread_mutex_lock(&p->glob->print_m);
+				ft_print_end(p, 1);
+				p->glob->is_die = 1;		
+				return (NULL);
+			}
 		}
 		if (p->glob->notepme > 0)
-			if (checker_max_meals(p->glob))
+			if (checker_max_meals(p))
 				return (NULL);
-		usleep(100);
+		usleep(35);
 	}
 	return (NULL);
 }

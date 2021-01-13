@@ -29,7 +29,6 @@ void	unlock_forks(t_phil *p)
 {
 	pthread_mutex_unlock(&p->glob->forks_m[p->r_fork]);
 	pthread_mutex_unlock(&p->glob->forks_m[p->l_fork]);
-	
 }
 
 int		eating(t_phil *p)

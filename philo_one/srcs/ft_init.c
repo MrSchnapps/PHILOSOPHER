@@ -60,6 +60,7 @@ int			ft_init(t_glob *g)
 
 	i = 0;
 	g->is_die = 0;
+	g->die_tester = 0;
 	if (g->notepme > 0)
 		g->meals_max_count = 0;
 	else
@@ -72,6 +73,7 @@ int			ft_init(t_glob *g)
 	{
 		g->phil[i].glob = g;
 		g->phil[i].l_fork = i;
+		g->phil[i].is_eating = 0;
 		g->phil[i].nb_of_eat = 0;
 		if (i == 0)
 			g->phil[i].r_fork = g->nop - 1;
