@@ -56,12 +56,13 @@ typedef struct		s_glob
 	int							tts;
 	int							notepme;
 	int							is_die;
+	int							die_tester;
 	int							meals_max_count;
 	t_phil						*phil;
 	pthread_t					*tab_th;
-	sem_t						forks_sem;
-	sem_t						print_sem;
-	sem_t						eat_max_sem;
+	sem_t						*forks_sem;
+	sem_t						*print_sem;
+	sem_t						*eat_max_sem;
 	long long unsigned int		time_start;
 }					t_glob;
 

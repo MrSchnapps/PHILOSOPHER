@@ -37,9 +37,9 @@ int		free_all(t_glob *g, int err)
 {
 	if (g->tab_th)
 		free(g->tab_th);
-	sem_destroy(&g->forks_sem);
-	sem_destroy(&g->print_sem);
-	sem_destroy(&g->eat_max_sem);
+	sem_destroy(g->forks_sem);
+	sem_destroy(g->print_sem);
+	sem_destroy(g->eat_max_sem);
 	if (g->phil)
 		free(g->phil);
 	return (err);

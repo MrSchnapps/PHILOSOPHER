@@ -16,7 +16,7 @@ int		checker_max_meals(t_glob *g)
 {
 	if (g->meals_max_count >= g->nop)
 	{
-		sem_wait(&g->print_sem);
+		sem_wait(g->print_sem);
 		if (ft_print_all_meals(g))
 			return (0);
 		g->is_die = 1;
@@ -37,15 +37,19 @@ void	*checker_death(void *arg)
 			return ((void *)TIMERR);
 		if (!p->is_eating && cur_time > (p->glob->ttd + p->last_eat))
 		{
-			sem_wait(&p->glob->print_sem);
-			ft_print(p, "  died");
-			p->glob->is_die = 1;		
-			return (NULL);
+			p->glob->die_tester = 1;
+			sem_wait(p->glob->print_sem);
+			if (!p->is_eating)
+			{
+				ft_print(p, "  died");
+				p->glob->is_die = 1;		
+				return (NULL);
+			}
 		}
 		if (p->glob->notepme > 0)
 			if (checker_max_meals(p->glob))
 				return (NULL);
-		usleep(100);
+		usleep(30);
 	}
 	return (NULL);
 }

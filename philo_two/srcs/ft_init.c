@@ -39,9 +39,15 @@ static int	init_after(t_glob *g)
 		return (printerr(MERR));
 	if (get_start_time(&g->time_start) < 0)
 		return (TIMERR);
-	sem_init(&g->forks_sem, 0, g->nop);
+	/*sem_init(&g->forks_sem, 0, g->nop);
 	sem_init(&g->print_sem, 0, 1);
-	sem_init(&g->eat_max_sem, 0, 1);
+	sem_init(&g->eat_max_sem, 0, 1);*/
+	sem_unlink("forks");
+	g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop);
+	sem_unlink("print");
+	g->print_sem = sem_open("print", O_CREAT | O_EXCL, S_IRWXU, 1);
+	sem_unlink("eat_max");
+	g->eat_max_sem = sem_open("eat_max", O_CREAT | O_EXCL, S_IRWXU, 1);
 	return (0);
 }
 
@@ -51,6 +57,7 @@ int			ft_init(t_glob *g)
 
 	i = 0;
 	g->is_die = 0;
+	g->die_tester = 0;
 	if (g->notepme > 0)
 		g->meals_max_count = 0;
 	else
