@@ -41,8 +41,6 @@ typedef struct 	s_phil
 	int							is_eating;
 	int							nb_of_eat;
 	int							is_sleeping;
-	int							l_fork;
-	int							r_fork;
 	int							max_time;
 	long long unsigned int		last_eat;
 	struct s_glob				*glob;

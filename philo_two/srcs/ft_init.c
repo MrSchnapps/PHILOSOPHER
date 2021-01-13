@@ -39,9 +39,6 @@ static int	init_after(t_glob *g)
 		return (printerr(MERR));
 	if (get_start_time(&g->time_start) < 0)
 		return (TIMERR);
-	/*sem_init(&g->forks_sem, 0, g->nop);
-	sem_init(&g->print_sem, 0, 1);
-	sem_init(&g->eat_max_sem, 0, 1);*/
 	sem_unlink("forks");
 	g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop);
 	sem_unlink("print");
@@ -69,10 +66,7 @@ int			ft_init(t_glob *g)
 	{
 		g->phil[i].glob = g;
 		g->phil[i].nb_of_eat = 0;
-		if (i == 0)
-			g->phil[i].r_fork = g->nop - 1;
-		else
-			g->phil[i].r_fork = i - 1;
+		g->phil[i].is_eating = 0;
 		i++;
 	}
 	return (init_after(g));
