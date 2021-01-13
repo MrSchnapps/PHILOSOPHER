@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "philo_two.h"
 
 int		parse_args(int argc, char **argv, t_glob *g)
 {

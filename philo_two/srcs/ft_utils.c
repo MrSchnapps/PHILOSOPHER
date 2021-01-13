@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "philo_two.h"
 
 int		get_time(long long unsigned int *time, long long unsigned int t_start)
 {
@@ -37,9 +37,9 @@ int		free_all(t_glob *g, int err)
 {
 	if (g->tab_th)
 		free(g->tab_th);
-	sem_destroy(g->forks_sem);
-	sem_destroy(g->print_sem);
-	sem_destroy(g->eat_max_sem);
+	sem_unlink("forks");
+	sem_unlink("print");
+	sem_unlink("eat_max");
 	if (g->phil)
 		free(g->phil);
 	return (err);

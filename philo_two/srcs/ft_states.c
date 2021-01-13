@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "philo_two.h"
 
 int		start_forks(t_phil *p)
 {

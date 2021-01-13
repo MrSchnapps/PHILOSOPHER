@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "philo_two.h"
 
 int		checker_max_meals(t_phil *p)
 {

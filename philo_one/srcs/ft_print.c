@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "philo_one.h"
 
 static char		*print_join(int time, int order, char *msg)
 {

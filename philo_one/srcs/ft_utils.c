@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "philo_one.h"
 
 int		get_time(long long unsigned int *time, long long unsigned int t_start)
 {

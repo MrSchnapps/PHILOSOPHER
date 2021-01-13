@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosopher.h                                      :+:      :+:    :+:   */
+/*   philo_one.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/18 21:26:54 by judecuyp          #+#    #+#             */
-/*   Updated: 2020/11/18 21:26:54 by judecuyp         ###   ########.fr       */
+/*   Created: 2021/01/13 21:57:52 by judecuyp          #+#    #+#             */
+/*   Updated: 2021/01/13 21:57:52 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHER_H
-# define PHILOSOPHER_H
+#ifndef PHILO_ONE_H
+# define PHILO_ONE_H
 
 # include <pthread.h>
 # include <stdio.h>
