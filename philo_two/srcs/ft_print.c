@@ -35,14 +35,24 @@ static char		*print_join(int time, int order, char *msg)
 	return (str);
 }
 
-int			ft_print_all_meals(t_glob *g)
+int			ft_print_end(t_phil *p, int code)
 {
 	long long unsigned int	cur_time;
 
-	if (get_time(&cur_time, g->time_start) < 0)
+	if (get_time(&cur_time, p->glob->time_start) < 0)
 		return (TIMERR);
-	ft_putnbr_fd(cur_time, 1);
-	write(1, " All the meals has been eaten.\n", 31);
+	if (code == 1)
+	{
+		ft_putnbr_fd(cur_time, 1);
+		write(1, " ", 1);
+		ft_putnbr_fd(p->order, 1);
+		write(1, " died\n", 6);
+	}
+	else if (code == 2)
+	{
+		ft_putnbr_fd(cur_time, 1);
+		write(1, " All the meals has been eaten.\n", 31);
+	}
 	return (0);
 }
 
@@ -51,12 +61,15 @@ int			ft_print(t_phil *p, char *msg)
 	long long unsigned int	cur_time;
 	char					*str;
 
-	if (get_time(&cur_time, p->glob->time_start) < 0)
-		return (TIMERR);
-	if (!(str = print_join((int)cur_time, p->order, msg)))
-		return (printerr(MERR));
-	write(1, str, ft_strlen(str));
-	free(str);
+	if (!p->glob->die_tester)
+	{
+		if (get_time(&cur_time, p->glob->time_start) < 0)
+			return (TIMERR);
+		if (!(str = print_join((int)cur_time, p->order, msg)))
+			return (printerr(MERR));
+		write(1, str, ft_strlen(str));
+		free(str);
+	}
 	return (0);
 }
 
@@ -65,13 +78,16 @@ int			ft_print_eat(t_phil *p, char *msg)
 	long long unsigned int	cur_time;
 	char					*str;
 
-	if (get_time(&cur_time, p->glob->time_start) < 0)
-		return (TIMERR);
-	p->last_eat = cur_time;
-	if (!(str = print_join((int)cur_time, p->order, msg)))
-		return (printerr(MERR));
-	write(1, str, ft_strlen(str));
-	free(str);
+	if (!p->glob->die_tester)
+	{
+		if (get_time(&cur_time, p->glob->time_start) < 0)
+			return (TIMERR);
+		p->last_eat = cur_time;
+		if (!(str = print_join((int)cur_time, p->order, msg)))
+			return (printerr(MERR));
+		write(1, str, ft_strlen(str));
+		free(str);
+	}
 	return (0);
 }
 

@@ -91,7 +91,7 @@ void	ft_putnbr_fd(int n, int fd);
 */
 
 int		ft_print(t_phil *p, char *msg);
-int		ft_print_all_meals(t_glob *g);
+int		ft_print_end(t_phil *p, int code);
 int		ft_print_eat(t_phil *p, char *msg);
 int		printerr(int ret);
 

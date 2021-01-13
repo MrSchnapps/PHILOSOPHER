@@ -38,18 +38,15 @@ void	*checker_death(void *arg)
 		if (!p->is_eating && cur_time > (p->glob->ttd + p->last_eat))
 		{
 			p->glob->die_tester = 1;
-			if (!p->is_eating)
-			{
-				pthread_mutex_lock(&p->glob->print_m);
-				ft_print_end(p, 1);
-				p->glob->is_die = 1;		
-				return (NULL);
-			}
+			pthread_mutex_lock(&p->glob->print_m);
+			ft_print_end(p, 1);
+			p->glob->is_die = 1;		
+			return (NULL);
 		}
 		if (p->glob->notepme > 0)
 			if (checker_max_meals(p))
 				return (NULL);
-		usleep(35);
+		usleep(30);
 	}
 	return (NULL);
 }
