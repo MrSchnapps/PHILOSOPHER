@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 22:22:05 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:37:46 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 17:17:47 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,22 @@ static char		*print_join(int time, int order, char *msg)
 int				ft_print_end(t_phil *p, int code)
 {
 	long long unsigned int	cur_time;
-
-	if (get_time(&cur_time, p->glob->time_start) < 0)
-		return (TIMERR);
-	if (code == 1)
+	if (!p->glob->is_die)
 	{
-		ft_putnbr_fd(cur_time, 1);
-		write(1, " ", 1);
-		ft_putnbr_fd(p->order, 1);
-		write(1, " died\n", 6);
-	}
-	else if (code == 2)
-	{
-		ft_putnbr_fd(cur_time, 1);
-		write(1, " All the meals has been eaten.\n", 31);
+		if (get_time(&cur_time, p->glob->time_start) < 0)
+			return (TIMERR);
+		if (code == 1)
+		{
+			ft_putnbr_fd(cur_time, 1);
+			write(1, " ", 1);
+			ft_putnbr_fd(p->order, 1);
+			write(1, " died\n", 6);
+		}
+		else if (code == 2)
+		{
+			ft_putnbr_fd(cur_time, 1);
+			write(1, " All the meals has been eaten.\n", 31);
+		}
 	}
 	return (0);
 }
