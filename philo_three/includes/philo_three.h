@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:31:14 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:18:30 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:41:00 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int				printerr(int ret);
 
 int				ft_init(t_glob *g);
 int				parse_args(int argc, char **argv, t_glob *g);
+static int		starting_threads(t_glob *g);
 
 /*
 ** States

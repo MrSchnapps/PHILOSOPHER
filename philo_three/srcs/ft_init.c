@@ -6,11 +6,37 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:24:15 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:40:44 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
+
+static int		starting_threads(t_glob *g)
+{
+	int		i;
+	t_phil	*p;
+
+	i = 0;
+	if (get_start_time(&g->time_start) < 0)
+		return (TIMERR);
+	while (i < g->nop)
+	{
+		g->phil[i].order = i + 1;
+		p = (void *)&g->phil[i];
+		g->tab_pid[i] = fork();
+		if (g->tab_pid[i] < 0)
+			return (printerr(FORKERR));
+		else if (g->tab_pid[i] == 0)
+		{
+			states(p);
+			exit(0);
+		}
+		usleep(35);
+		i++;
+	}
+	return (0);
+}
 
 int			parse_args(int argc, char **argv, t_glob *g)
 {
