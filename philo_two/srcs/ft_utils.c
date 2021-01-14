@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:03:11 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/11 11:03:11 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:35:06 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		get_time(long long unsigned int *time, long long unsigned int t_start)
 {
-	struct	timeval t;
+	struct timeval t;
 
 	if (gettimeofday(&t, NULL) < 0)
 		return (printerr(TIMERR));
@@ -25,11 +25,11 @@ int		get_time(long long unsigned int *time, long long unsigned int t_start)
 
 int		get_start_time(long long unsigned int *time)
 {
-	struct	timeval t;
+	struct timeval t;
 
 	if (gettimeofday(&t, NULL) < 0)
 		return (printerr(TIMERR));
-	*time = (long long unsigned int)((t.tv_sec * 1000) + (t.tv_usec / 1000)); 
+	*time = (long long unsigned int)((t.tv_sec * 1000) + (t.tv_usec / 1000));
 	return (0);
 }
 

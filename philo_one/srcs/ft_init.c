@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2020/11/19 17:02:23 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:11:21 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			parse_args(int argc, char **argv, t_glob *g)
 {
 	if (argc < 5 || argc > 6)
 		return (printerr(INVNB));
-	if ((g->nop = ft_atoi(argv[1])) < 2 
+	if ((g->nop = ft_atoi(argv[1])) < 2
 		|| (g->ttd = ft_atoi(argv[2])) < 60
 		|| (g->tte = ft_atoi(argv[3])) < 60
 		|| (g->tts = ft_atoi(argv[4])) < 60)
@@ -41,7 +41,8 @@ static int	mut_init(t_glob *g)
 		return (printerr(MERR));
 	pthread_mutex_init(&g->eat_max_m, NULL);
 	pthread_mutex_init(&g->print_m, NULL);
-	if (!(g->forks_m = (pthread_mutex_t *)malloc(g->nop * sizeof(pthread_mutex_t))))
+	if (!(g->forks_m = (pthread_mutex_t *)malloc(g->nop *
+					sizeof(pthread_mutex_t))))
 		return (printerr(MERR));
 	i = 0;
 	while (i < g->nop)
@@ -56,7 +57,7 @@ int			ft_init(t_glob *g)
 {
 	int i;
 
-	i = 0;
+	i = -1;
 	g->is_die = 0;
 	g->die_tester = 0;
 	if (g->notepme > 0)
@@ -67,7 +68,7 @@ int			ft_init(t_glob *g)
 	g->forks_m = NULL;
 	if (!(g->phil = (t_phil *)malloc(g->nop * sizeof(t_phil))))
 		return (printerr(MERR));
-	while (i < g->nop)
+	while (++i < g->nop)
 	{
 		g->phil[i].glob = g;
 		g->phil[i].l_fork = i;
@@ -77,7 +78,6 @@ int			ft_init(t_glob *g)
 			g->phil[i].r_fork = g->nop - 1;
 		else
 			g->phil[i].r_fork = i - 1;
-		i++;
 	}
 	return (mut_init(g));
 }

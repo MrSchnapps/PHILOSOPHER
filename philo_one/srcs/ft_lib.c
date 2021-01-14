@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 19:46:19 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/11 19:46:19 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:05:49 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,3 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putnbr_fd(nb / 10, fd);
 	ft_putchar_fd(nb % 10 + '0', fd);
 }
-

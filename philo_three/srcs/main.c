@@ -6,12 +6,9 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2020/11/18 21:19:44 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:28:26 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//** démarrer le prog à 0 secondes
-
 
 #include "philo_three.h"
 
@@ -26,7 +23,7 @@ static int		get_ret(pid_t pid)
 		if (WEXITSTATUS(ret) == DIED_EXIT)
 			return (DIED_EXIT);
 		else if (WEXITSTATUS(ret) == ALL_MEAT_EXIT)
-				return (ALL_MEAT_EXIT);
+			return (ALL_MEAT_EXIT);
 	}
 	return (0);
 }
@@ -63,7 +60,7 @@ static void		tension(t_glob *g)
 static void		*checker_death(void *arg)
 {
 	t_phil					*p;
-	long long unsigned int 	cur_time;
+	long long unsigned int	cur_time;
 
 	p = (t_phil *)arg;
 	while (1)
@@ -74,7 +71,7 @@ static void		*checker_death(void *arg)
 		{
 			sem_wait(p->glob->print_sem);
 			ft_print_end(p, 1);
-			p->glob->is_die = 1;		
+			p->glob->is_die = 1;
 			exit(DIED_EXIT);
 		}
 		if (p->glob->notepme > 0)
@@ -86,7 +83,6 @@ static void		*checker_death(void *arg)
 	}
 	return (NULL);
 }
-
 
 static void		states(void *arg)
 {
@@ -117,12 +113,12 @@ static int		starting_threads(t_glob *g)
 {
 	int		i;
 	t_phil	*p;
-	
+
 	i = 0;
 	if (get_start_time(&g->time_start) < 0)
 		return (TIMERR);
 	while (i < g->nop)
-	{	
+	{
 		g->phil[i].order = i + 1;
 		p = (void *)&g->phil[i];
 		g->tab_pid[i] = fork();

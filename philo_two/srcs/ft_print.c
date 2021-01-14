@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 22:22:05 by judecuyp          #+#    #+#             */
-/*   Updated: 2020/11/18 22:22:05 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:37:46 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				ft_print_eat(t_phil *p, char *msg)
 	return (0);
 }
 
-int			printerr(int ret)
+int				printerr(int ret)
 {
 	if (ret == MERR)
 		ft_putendl_fd("Memory error", 2);

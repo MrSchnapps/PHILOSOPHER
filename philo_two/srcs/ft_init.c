@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2020/11/19 17:02:23 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:32:53 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			parse_args(int argc, char **argv, t_glob *g)
 {
 	if (argc < 5 || argc > 6)
 		return (printerr(INVNB));
-	if ((g->nop = ft_atoi(argv[1])) < 2 
+	if ((g->nop = ft_atoi(argv[1])) < 2
 		|| (g->ttd = ft_atoi(argv[2])) < 60
 		|| (g->tte = ft_atoi(argv[3])) < 60
 		|| (g->tts = ft_atoi(argv[4])) < 60)

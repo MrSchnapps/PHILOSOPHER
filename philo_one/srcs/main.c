@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2020/11/18 21:19:44 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:14:11 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				checker_max_meals(t_phil *p)
 static void		*checker_death(void *arg)
 {
 	t_phil					*p;
-	long long unsigned int 	cur_time;
+	long long unsigned int	cur_time;
 
 	p = (t_phil *)arg;
 	while (1)
@@ -40,7 +40,7 @@ static void		*checker_death(void *arg)
 			p->glob->die_tester = 1;
 			pthread_mutex_lock(&p->glob->print_m);
 			ft_print_end(p, 1);
-			p->glob->is_die = 1;		
+			p->glob->is_die = 1;
 			return (NULL);
 		}
 		if (p->glob->notepme > 0)
@@ -80,7 +80,7 @@ static int		starting_threads(t_glob *g)
 {
 	int		i;
 	t_phil	*p;
-	
+
 	i = 0;
 	if (get_start_time(&g->time_start) < 0)
 		return (TIMERR);

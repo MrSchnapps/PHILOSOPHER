@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2020/11/19 17:02:23 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:24:15 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			parse_args(int argc, char **argv, t_glob *g)
 {
 	if (argc < 5 || argc > 6)
 		return (printerr(INVNB));
-	if ((g->nop = ft_atoi(argv[1])) < 2 
+	if ((g->nop = ft_atoi(argv[1])) < 2
 		|| (g->ttd = ft_atoi(argv[2])) < 60
 		|| (g->tte = ft_atoi(argv[3])) < 60
 		|| (g->tts = ft_atoi(argv[4])) < 60)
@@ -37,8 +37,6 @@ static int	init_after(t_glob *g)
 {
 	if (!(g->tab_pid = (pid_t *)malloc(g->nop * sizeof(pid_t))))
 		return (printerr(MERR));
-	/*if (get_start_time(&g->time_start) < 0)
-		return (TIMERR);*/
 	sem_unlink("forks");
 	g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop);
 	sem_unlink("print");
