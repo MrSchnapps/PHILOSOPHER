@@ -6,7 +6,7 @@
 #    By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/12 09:55:06 by judecuyp          #+#    #+#              #
-#    Updated: 2021/01/12 09:55:06 by judecuyp         ###   ########.fr        #
+#    Updated: 2021/01/14 16:54:36 by judecuyp         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ all: $(NAME)
 
 $(NAME):	$(OBJS)
 			@echo "Compiling $@"
-			@$(CC) $(CFLAGS) $(OBJS) -o $@ -I $(HEADER_PATH) -lpthread -lrt
+			@$(CC) $(CFLAGS) $(OBJS) -o $@ -I $(HEADER_PATH) -lpthread
 			@echo "Success"
 .c.o:
 	@echo "Compiling $@"

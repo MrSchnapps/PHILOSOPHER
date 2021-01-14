@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:31:14 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:44:06 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:53:27 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,9 @@ void			unlock_forks(t_phil *p);
 int				eating(t_phil *p);
 int				sleeping(t_phil *p);
 int				thinking(t_phil *p);
+
+/*
+** Main
+*/
+void			states(void *arg);
 #endif

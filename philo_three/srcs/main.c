@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:43:45 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:52:23 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void		*checker_death(void *arg)
 	return (NULL);
 }
 
-static void		states(void *arg)
+void			states(void *arg)
 {
 	t_phil		*p;
 	pthread_t	id;
