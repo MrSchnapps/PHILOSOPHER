@@ -39,8 +39,6 @@ static int	mut_init(t_glob *g)
 
 	if (!(g->tab_th = (pthread_t *)malloc(g->nop * sizeof(pthread_t))))
 		return (printerr(MERR));
-	if (get_start_time(&g->time_start) < 0)
-		return (TIMERR);
 	pthread_mutex_init(&g->eat_max_m, NULL);
 	pthread_mutex_init(&g->print_m, NULL);
 	if (!(g->forks_m = (pthread_mutex_t *)malloc(g->nop * sizeof(pthread_mutex_t))))

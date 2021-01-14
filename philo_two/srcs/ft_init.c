@@ -37,8 +37,6 @@ static int	init_after(t_glob *g)
 {
 	if (!(g->tab_th = (pthread_t *)malloc(g->nop * sizeof(pthread_t))))
 		return (printerr(MERR));
-	if (get_start_time(&g->time_start) < 0)
-		return (TIMERR);
 	sem_unlink("forks");
 	g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop);
 	sem_unlink("print");

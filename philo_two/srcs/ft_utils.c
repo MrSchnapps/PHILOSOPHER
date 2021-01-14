@@ -40,6 +40,10 @@ int		free_all(t_glob *g, int err)
 	sem_unlink("forks");
 	sem_unlink("print");
 	sem_unlink("eat_max");
+	sem_close(g->forks_sem);
+	sem_close(g->print_sem);
+	sem_close(g->eat_max_sem);
+
 	if (g->phil)
 		free(g->phil);
 	return (err);

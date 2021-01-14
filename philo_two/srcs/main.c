@@ -82,6 +82,8 @@ int		starting_threads(t_glob *g)
 	t_phil	*p;
 	
 	i = 0;
+	if (get_start_time(&g->time_start) < 0)
+		return (TIMERR);
 	while (i < g->nop)
 	{	
 		g->phil[i].order = i + 1;
