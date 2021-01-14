@@ -35,7 +35,7 @@ static char		*print_join(int time, int order, char *msg)
 	return (str);
 }
 
-int			ft_print_end(t_phil *p, int code)
+int				ft_print_end(t_phil *p, int code)
 {
 	long long unsigned int	cur_time;
 
@@ -56,7 +56,7 @@ int			ft_print_end(t_phil *p, int code)
 	return (0);
 }
 
-int			ft_print(t_phil *p, char *msg)
+int				ft_print(t_phil *p, char *msg)
 {
 	long long unsigned int	cur_time;
 	char					*str;
@@ -73,7 +73,7 @@ int			ft_print(t_phil *p, char *msg)
 	return (0);
 }
 
-int			ft_print_eat(t_phil *p, char *msg)
+int				ft_print_eat(t_phil *p, char *msg)
 {
 	long long unsigned int	cur_time;
 	char					*str;
@@ -91,7 +91,7 @@ int			ft_print_eat(t_phil *p, char *msg)
 	return (0);
 }
 
-int			printerr(int ret)
+int				printerr(int ret)
 {
 	if (ret == MERR)
 		ft_putendl_fd("Memory error", 2);

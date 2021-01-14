@@ -120,10 +120,4 @@ int		eating(t_phil *p);
 int		sleeping(t_phil *p);
 int		thinking(t_phil *p);
 
-/*
-** Routines
-*/
-
-void	*states_max_eat(void *arg);
-void	*checker_death(void *arg);
 #endif

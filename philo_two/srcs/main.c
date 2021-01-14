@@ -12,7 +12,7 @@
 
 #include "philo_two.h"
 
-int		checker_max_meals(t_phil *p)
+static int		checker_max_meals(t_phil *p)
 {
 	if (p->glob->meals_max_count >= p->glob->nop)
 	{
@@ -25,7 +25,7 @@ int		checker_max_meals(t_phil *p)
 	return (0);
 }
 
-void	*checker_death(void *arg)
+static void		*checker_death(void *arg)
 {
 	t_phil					*p;
 	long long unsigned int 	cur_time;
@@ -51,7 +51,7 @@ void	*checker_death(void *arg)
 	return (NULL);
 }
 
-void	*states(void *arg)
+static void		*states(void *arg)
 {
 	t_phil		*p;
 	pthread_t	id;
@@ -76,7 +76,7 @@ void	*states(void *arg)
 	return (NULL);
 }
 
-int		starting_threads(t_glob *g)
+static int		starting_threads(t_glob *g)
 {
 	int		i;
 	t_phil	*p;
@@ -97,7 +97,7 @@ int		starting_threads(t_glob *g)
 	return (0);
 }
 
-int		main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	int			err;
 	t_glob		g;

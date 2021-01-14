@@ -12,7 +12,7 @@
 
 #include "philo_three.h"
 
-int		parse_args(int argc, char **argv, t_glob *g)
+int			parse_args(int argc, char **argv, t_glob *g)
 {
 	if (argc < 5 || argc > 6)
 		return (printerr(INVNB));

@@ -15,7 +15,7 @@
 
 #include "philo_three.h"
 
-int		get_ret(pid_t pid)
+static int		get_ret(pid_t pid)
 {
 	int ret;
 
@@ -31,7 +31,7 @@ int		get_ret(pid_t pid)
 	return (0);
 }
 
-void	tension(t_glob *g)
+static void		tension(t_glob *g)
 {
 	int i;
 	int ret;
@@ -60,7 +60,7 @@ void	tension(t_glob *g)
 			(exit(ERR));
 }
 
-void	*checker_death(void *arg)
+static void		*checker_death(void *arg)
 {
 	t_phil					*p;
 	long long unsigned int 	cur_time;
@@ -69,7 +69,7 @@ void	*checker_death(void *arg)
 	while (1)
 	{
 		if (get_time(&cur_time, p->glob->time_start))
-			return (exit(ERR));
+			exit(ERR);
 		if (!p->is_eating && cur_time > (p->glob->ttd + p->last_eat))
 		{
 			sem_wait(p->glob->print_sem);
@@ -88,7 +88,7 @@ void	*checker_death(void *arg)
 }
 
 
-void	states(void *arg)
+static void		states(void *arg)
 {
 	t_phil		*p;
 	pthread_t	id;
@@ -113,7 +113,7 @@ void	states(void *arg)
 	exit(19);
 }
 
-int		starting_threads(t_glob *g)
+static int		starting_threads(t_glob *g)
 {
 	int		i;
 	t_phil	*p;
@@ -139,7 +139,7 @@ int		starting_threads(t_glob *g)
 	return (0);
 }
 
-int		main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	int			err;
 	t_glob		g;
