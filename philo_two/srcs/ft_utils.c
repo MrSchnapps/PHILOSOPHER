@@ -35,15 +35,14 @@ int		get_start_time(long long unsigned int *time)
 
 int		free_all(t_glob *g, int err)
 {
-	if (g->tab_th)
-		free(g->tab_th);
 	sem_unlink("forks");
 	sem_unlink("print");
 	sem_unlink("eat_max");
 	sem_close(g->forks_sem);
 	sem_close(g->print_sem);
 	sem_close(g->eat_max_sem);
-
+	if (g->tab_th)
+		free(g->tab_th);
 	if (g->phil)
 		free(g->phil);
 	return (err);

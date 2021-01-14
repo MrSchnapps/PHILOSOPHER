@@ -38,8 +38,6 @@ int		free_all(t_glob *g, int err)
 	int i;
 
 	i = 0;
-	if (g->tab_th)
-		free(g->tab_th);
 	if (g->forks_m)
 	{
 		while (i < g->nop)
@@ -50,6 +48,8 @@ int		free_all(t_glob *g, int err)
 	pthread_mutex_destroy(&g->eat_max_m);
 	if (g->phil)
 		free(g->phil);
+	if (g->tab_th)
+		free(g->tab_th);
 	return (err);
 }
 
