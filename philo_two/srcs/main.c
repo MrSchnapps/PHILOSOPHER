@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 17:16:21 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 17:27:21 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int		checker_max_meals(t_phil *p)
 	if (p->glob->meals_max_count >= p->glob->nop)
 	{
 		sem_wait(p->glob->print_sem);
+		p->glob->die_tester = 1;
 		if (ft_print_end(p, 2))
 			return (0);
 		p->glob->is_die = 1;
-		sem_post(p->glob->print_sem);
 		return (1);
 	}
 	return (0);
@@ -42,7 +42,6 @@ static void		*checker_death(void *arg)
 			sem_wait(p->glob->print_sem);
 			ft_print_end(p, 1);
 			p->glob->is_die = 1;
-			sem_post(p->glob->print_sem);
 			return (NULL);
 		}
 		if (p->glob->notepme > 0)
