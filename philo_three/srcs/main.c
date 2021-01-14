@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:28:26 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:43:45 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,32 +107,6 @@ static void		states(void *arg)
 			exit(ERR);
 	}
 	exit(19);
-}
-
-static int		starting_threads(t_glob *g)
-{
-	int		i;
-	t_phil	*p;
-
-	i = 0;
-	if (get_start_time(&g->time_start) < 0)
-		return (TIMERR);
-	while (i < g->nop)
-	{
-		g->phil[i].order = i + 1;
-		p = (void *)&g->phil[i];
-		g->tab_pid[i] = fork();
-		if (g->tab_pid[i] < 0)
-			return (printerr(FORKERR));
-		else if (g->tab_pid[i] == 0)
-		{
-			states(p);
-			exit(0);
-		}
-		usleep(35);
-		i++;
-	}
-	return (0);
 }
 
 int				main(int argc, char **argv)

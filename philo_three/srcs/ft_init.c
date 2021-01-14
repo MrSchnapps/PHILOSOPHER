@@ -6,13 +6,13 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:40:44 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:45:02 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
-static int		starting_threads(t_glob *g)
+int			starting_threads(t_glob *g)
 {
 	int		i;
 	t_phil	*p;
