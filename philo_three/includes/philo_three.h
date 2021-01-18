@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:31:14 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 18:14:01 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 14:42:35 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@
 */
 
 # define SUCCESS 0
-# define ERR 1
+# define ERR 21
 # define MERR 3
 # define TIMERR -1
 # define THDERR 4
 # define INVNB 5
 # define INVVAL 6
 # define FORKERR 7
+# define SEMERR 1
 
 /*
 ** Exit code
@@ -109,6 +110,7 @@ int				printerr(int ret);
 int				ft_init(t_glob *g);
 int				parse_args(int argc, char **argv, t_glob *g);
 int				starting_threads(t_glob *g);
+void			check_end(t_glob *g, int ret);
 
 /*
 ** States

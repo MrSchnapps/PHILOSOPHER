@@ -6,11 +6,23 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 12:43:16 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 14:44:32 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
+
+void		check_end(t_glob *g, int ret)
+{
+	int i;
+
+	i = 0;
+	while (i < g->nop)
+		kill(g->tab_pid[i++], SIGKILL);
+	if (ret == ALL_MEAT_EXIT)
+		if (ft_print_end(&g->phil[0], 2))
+			(free_all(g, ERR));
+}
 
 int			starting_threads(t_glob *g)
 {
@@ -19,14 +31,14 @@ int			starting_threads(t_glob *g)
 
 	i = 0;
 	if (get_start_time(&g->time_start) < 0)
-		return (TIMERR);
+		exit(TIMERR);
 	while (i < g->nop)
 	{
 		g->phil[i].order = i + 1;
 		p = (void *)&g->phil[i];
 		g->tab_pid[i] = fork();
 		if (g->tab_pid[i] < 0)
-			return (printerr(FORKERR));
+			exit(FORKERR);
 		else if (g->tab_pid[i] == 0)
 		{
 			states(p);
@@ -62,11 +74,13 @@ int			parse_args(int argc, char **argv, t_glob *g)
 static int	init_after(t_glob *g)
 {
 	if (!(g->tab_pid = (pid_t *)malloc(g->nop * sizeof(pid_t))))
-		return (printerr(MERR));
+		exit(SEMERR);
 	sem_unlink("forks");
-	g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop);
+	if ((g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop)) == SEM_FAILED)
+		exit(SEMERR);
 	sem_unlink("print");
-	g->print_sem = sem_open("print", O_CREAT | O_EXCL, S_IRWXU, 1);
+	if ((g->print_sem = sem_open("print", O_CREAT | O_EXCL, S_IRWXU, 1)) == SEM_FAILED)
+		exit(SEMERR);
 	return (0);
 }
 
@@ -83,7 +97,7 @@ int			ft_init(t_glob *g)
 		g->meals_max_count = -2;
 	g->tab_pid = NULL;
 	if (!(g->phil = (t_phil *)malloc(g->nop * sizeof(t_phil))))
-		return (printerr(MERR));
+		exit(MERR);
 	while (i < g->nop)
 	{
 		g->phil[i].glob = g;

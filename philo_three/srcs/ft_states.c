@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_forks.c                                         :+:      :+:    :+:   */
+/*   ft_states.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 20:08:51 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:20:16 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 14:38:58 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int		start_forks(t_phil *p)
 	if (!p->glob->die_tester)
 	{
 		if (ft_print(p, " has taken a fork\n"))
-			return (ERR);
+			exit(ERR);
 		if (ft_print(p, " has taken a fork\n"))
-			return (ERR);
+			exit(ERR);
 	}
 	sem_post(p->glob->print_sem);
 	return (SUCCESS);
@@ -44,7 +44,7 @@ int		eating(t_phil *p)
 		sem_wait(p->glob->print_sem);
 		p->is_eating = 1;
 		if (ft_print_eat(p, " is eating\n"))
-			return (ERR);
+			exit(ERR);
 		sem_post(p->glob->print_sem);
 		usleep(p->glob->tte * 1000);
 		unlock_forks(p);
@@ -60,7 +60,7 @@ int		sleeping(t_phil *p)
 	{
 		sem_wait(p->glob->print_sem);
 		if (ft_print(p, " is sleeping\n"))
-			return (ERR);
+			exit(ERR);
 		sem_post(p->glob->print_sem);
 		usleep(p->glob->tts * 1000);
 	}
@@ -73,7 +73,7 @@ int		thinking(t_phil *p)
 	{
 		sem_wait(p->glob->print_sem);
 		if (ft_print(p, " is thinking\n"))
-			return (ERR);
+			exit(ERR);
 		sem_post(p->glob->print_sem);
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 12:42:42 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 14:42:46 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,14 @@ static void		tension(t_glob *g)
 			if (g->meals_max_count == g->nop)
 				break ;
 		}
+		if (ret == ERR)
+			kill(0, SIGQUIT);
 		i++;
 		if (i == g->nop)
 			i = 0;
 		usleep(30);
 	}
-	while (i < g->nop)
-		kill(g->tab_pid[i++], SIGKILL);
-	if (ret == ALL_MEAT_EXIT)
-		if (ft_print_end(&g->phil[0], 2))
-			(exit(ERR));
+	check_end(g, ret);
 }
 
 static void		*checker_death(void *arg)
