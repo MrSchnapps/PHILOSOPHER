@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 13:30:23 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 15:53:43 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ static void		*checker_death(void *arg)
 {
 	t_phil					*p;
 	long long unsigned int	cur_time;
-
+	int						*is_end;
+	
 	p = (t_phil *)arg;
-	while (!p->glob->is_die)
+	is_end = &p->glob->is_die;
+	while (!*is_end)
 	{
 		if (get_time(&cur_time, p->glob))
 			return ((void *)TIMERR);
@@ -40,7 +42,7 @@ static void		*checker_death(void *arg)
 			p->glob->die_tester = 1;
 			pthread_mutex_lock(&p->glob->print_m);
 			ft_print_end(p, 1);
-			p->glob->is_die = 1;
+			*is_end = 1;
 			return (NULL);
 		}
 		if (p->glob->notepme > 0)
