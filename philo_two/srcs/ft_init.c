@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:32:53 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 12:42:09 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int			ft_init(t_glob *g)
 		g->phil[i].glob = g;
 		g->phil[i].nb_of_eat = 0;
 		g->phil[i].is_eating = 0;
+		g->phil[i].last_eat = 0;
 		i++;
 	}
 	return (init_after(g));

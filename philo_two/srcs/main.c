@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 11:25:18 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 12:41:37 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ static void		*states(void *arg)
 	pthread_t	id;
 
 	p = (t_phil *)arg;
-	if (get_time(&p->last_eat, p->glob->time_start) < 0)
-		return ((void *)ERR);
 	if (pthread_create(&id, NULL, &checker_death, arg))
 		return ((void *)ERR);
 	pthread_detach(id);
