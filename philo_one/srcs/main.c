@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:14:11 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 11:24:08 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		*checker_death(void *arg)
 	long long unsigned int	cur_time;
 
 	p = (t_phil *)arg;
-	while (1)
+	while (!p->glob->is_die)
 	{
 		if (get_time(&cur_time, p->glob->time_start))
 			return ((void *)TIMERR);
