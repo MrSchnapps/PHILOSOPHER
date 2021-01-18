@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 12:38:16 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 13:31:41 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 int			parse_args(int argc, char **argv, t_glob *g)
 {
 	if (argc < 5 || argc > 6)
-		return (printerr(INVNB));
+		return (printerr(INVNB, g));
 	if ((g->nop = ft_atoi(argv[1])) < 2
 		|| (g->ttd = ft_atoi(argv[2])) < 60
 		|| (g->tte = ft_atoi(argv[3])) < 60
 		|| (g->tts = ft_atoi(argv[4])) < 60)
-		return (printerr(INVVAL));
+		return (printerr(INVVAL, g));
 	if (g->nop > 200)
-		return (printerr(INVVAL));
+		return (printerr(INVVAL, g));
 	if (argc == 5)
 		g->notepme = -1;
 	else
 	{
 		if ((g->notepme = ft_atoi(argv[5])) <= 0)
-			return (printerr(INVVAL));
+			return (printerr(INVVAL, g));
 	}
 	return (0);
 }
@@ -40,12 +40,19 @@ static int	mut_init(t_glob *g)
 	g->is_die = 0;
 	g->die_tester = 0;
 	if (!(g->tab_th = (pthread_t *)malloc(g->nop * sizeof(pthread_t))))
-		return (printerr(MERR));
+	{
+		free(g->phil);
+		return (printerr(MERR, g));
+	}
 	pthread_mutex_init(&g->eat_max_m, NULL);
 	pthread_mutex_init(&g->print_m, NULL);
 	if (!(g->forks_m = (pthread_mutex_t *)malloc(g->nop *
 					sizeof(pthread_mutex_t))))
-		return (printerr(MERR));
+	{
+		free(g->phil);
+		free(g->tab_th);
+		return (printerr(MERR, g));
+	}
 	i = 0;
 	while (i < g->nop)
 	{
@@ -67,7 +74,7 @@ int			ft_init(t_glob *g)
 	g->tab_th = NULL;
 	g->forks_m = NULL;
 	if (!(g->phil = (t_phil *)malloc(g->nop * sizeof(t_phil))))
-		return (printerr(MERR));
+		return (printerr(MERR, g));
 	while (++i < g->nop)
 	{
 		g->phil[i].glob = g;

@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 12:53:00 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 13:30:23 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void		*checker_death(void *arg)
 	p = (t_phil *)arg;
 	while (!p->glob->is_die)
 	{
-		if (get_time(&cur_time, p->glob->time_start))
+		if (get_time(&cur_time, p->glob))
 			return ((void *)TIMERR);
 		if (!p->is_eating && cur_time > (p->glob->ttd + p->last_eat))
 		{
@@ -80,14 +80,14 @@ static int		starting_threads(t_glob *g)
 	t_phil	*p;
 
 	i = 0;
-	if (get_start_time(&g->time_start) < 0)
+	if (get_start_time(&g->time_start, g) < 0)
 		return (TIMERR);
 	while (i < g->nop)
 	{
 		g->phil[i].order = i + 1;
 		p = (void *)&g->phil[i];
 		if (pthread_create(&g->tab_th[i], NULL, &states, p))
-			return (printerr(THDERR));
+			return (THDERR);
 		pthread_detach(g->tab_th[i]);
 		usleep(100);
 		i++;
@@ -105,7 +105,7 @@ int				main(int argc, char **argv)
 	if (ft_init(&g))
 		return (EXIT_FAILURE);
 	if ((err = starting_threads(&g)))
-		return (free_all(&g, err));
+		return (printerr(err, &g));
 	while (!g.is_die)
 		usleep(1000);
 	free_all(&g, 0);
