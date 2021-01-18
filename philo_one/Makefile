@@ -27,7 +27,7 @@ $(NAME):	$(OBJS)
 			@echo "Success"
 .c.o:
 	@echo "Compiling $@"
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER_PATH)
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER_PATH) -g -fsanitize=adress
 
 clean:
 	@echo "Removing .o"
