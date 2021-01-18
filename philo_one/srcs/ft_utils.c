@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:03:11 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 17:39:15 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:25:04 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int		free_all(t_glob *g, int err)
 		free(g->phil);
 	if (g->tab_th)
 		free(g->tab_th);
-	//pthread_mutex_destroy(&g->print_m);
 	return (err);
 }
 
@@ -69,7 +68,7 @@ int		nb_len(int nb)
 	return (i);
 }
 
-void	utos(int nb, char *str, int i)
+void	utos(unsigned int nb, char str[255], int i)
 {
 	if (nb > 9)
 	{

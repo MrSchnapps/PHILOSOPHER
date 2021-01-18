@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:03:11 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 17:36:51 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:30:42 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		nb_len(int nb)
 	return (i);
 }
 
-void	utos(int nb, char *str, int i)
+void	utos(unsigned int nb, char str[255], int i)
 {
 	if (nb > 9)
 	{

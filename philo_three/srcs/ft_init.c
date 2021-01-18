@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 14:44:32 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:30:24 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,12 @@ static int	init_after(t_glob *g)
 	if (!(g->tab_pid = (pid_t *)malloc(g->nop * sizeof(pid_t))))
 		exit(SEMERR);
 	sem_unlink("forks");
-	if ((g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop)) == SEM_FAILED)
+	if ((g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop))
+		== SEM_FAILED)
 		exit(SEMERR);
 	sem_unlink("print");
-	if ((g->print_sem = sem_open("print", O_CREAT | O_EXCL, S_IRWXU, 1)) == SEM_FAILED)
+	if ((g->print_sem = sem_open("print", O_CREAT | O_EXCL, S_IRWXU, 1))
+		== SEM_FAILED)
 		exit(SEMERR);
 	return (0);
 }

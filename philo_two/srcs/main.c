@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 17:49:20 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:17:14 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,10 @@ static void		*states(void *arg)
 	pthread_detach(id);
 	while (!p->glob->is_die)
 	{
-		if (start_forks(p))
-			return ((void *)ERR);
-		if (eating(p))
-			return ((void *)ERR);
-		if (sleeping(p))
-			return ((void *)ERR);
-		if (thinking(p))
-			return ((void *)ERR);
+		start_forks(p);
+		eating(p);
+		sleeping(p);
+		thinking(p);
 	}
 	return (NULL);
 }

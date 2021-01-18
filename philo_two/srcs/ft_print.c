@@ -6,23 +6,21 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 22:22:05 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 13:58:43 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 20:06:16 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_two.h"
 
-static char		*print_join(int time, int order, char *msg)
+static int		print_join(unsigned int time, int order, char *msg,
+	char str[255])
 {
 	int		len_time;
 	int		len_order;
-	char	*str;
 	int		i;
 
 	len_time = nb_len(time);
 	len_order = nb_len(order);
-	if (!(str = (char *)malloc(len_time + len_order + ft_strlen(msg) + 2)))
-		return (NULL);
 	utos(time, str, len_time - 1);
 	str[len_time] = ' ';
 	len_order += len_time;
@@ -32,7 +30,7 @@ static char		*print_join(int time, int order, char *msg)
 	while (msg[i])
 		str[len_order++] = msg[i++];
 	str[len_order] = '\0';
-	return (str);
+	return (len_order);
 }
 
 int				ft_print_end(t_phil *p, int code)
@@ -59,37 +57,34 @@ int				ft_print_end(t_phil *p, int code)
 	return (0);
 }
 
-int				ft_print(t_phil *p, char *msg)
+void			ft_print(t_phil *p, char *msg)
 {
 	long long unsigned int	cur_time;
-	char					*str;
+	char					str[255];
+	int						len;
 
-	if (p->glob->die_tester)
-		return (1);
-	if (get_time(&cur_time, p->glob) < 0)
-		return (TIMERR);
-	if (!(str = print_join((int)cur_time, p->order, msg)))
-		return (printerr(MERR, p->glob));
-	write(1, str, ft_strlen(str));
-	free(str);
-	return (0);
+	if (!p->glob->die_tester)
+	{
+		get_time(&cur_time, p->glob);
+		len = print_join((int)cur_time, p->order, msg, str);
+		write(1, str, len);
+	}
+
 }
 
-int				ft_print_eat(t_phil *p, char *msg)
+void			ft_print_eat(t_phil *p, char *msg)
 {
 	long long unsigned int	cur_time;
-	char					*str;
+	char					str[255];
+	int						len;
 
-	if (p->glob->die_tester)
-		return (1);
-	if (get_time(&cur_time, p->glob) < 0)
-		return (TIMERR);
-	p->last_eat = cur_time;
-	if (!(str = print_join((int)cur_time, p->order, msg)))
-		return (printerr(MERR, p->glob));
-	write(1, str, ft_strlen(str));
-	free(str);
-	return (0);
+	if (!p->glob->die_tester)
+	{
+		get_time(&cur_time, p->glob);
+		p->last_eat = cur_time;
+		len = print_join((unsigned int)cur_time, p->order, msg, str);
+		write(1, str, len);
+	}
 }
 
 int				printerr(int ret, t_glob *g)

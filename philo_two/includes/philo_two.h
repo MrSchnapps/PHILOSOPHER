@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 21:54:38 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 14:08:52 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:52:40 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int				get_time(long long unsigned int *time, t_glob *g);
 int				get_start_time(long long unsigned int *time, t_glob *g);
 int				free_all(t_glob *g, int err);
 int				nb_len(int nb);
-void			utos(int nb, char *str, int i);
+void			utos(unsigned int nb, char str[255], int i);
 
 /*
 ** Lib
@@ -87,9 +87,9 @@ void			ft_putnbr_fd(int n, int fd);
 ** Print
 */
 
-int				ft_print(t_phil *p, char *msg);
+void			ft_print(t_phil *p, char *msg);
 int				ft_print_end(t_phil *p, int code);
-int				ft_print_eat(t_phil *p, char *msg);
+void			ft_print_eat(t_phil *p, char *msg);
 int				printerr(int ret, t_glob *g);
 
 /*
