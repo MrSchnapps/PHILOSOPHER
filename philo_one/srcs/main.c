@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 12:41:09 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 12:53:00 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int		starting_threads(t_glob *g)
 		if (pthread_create(&g->tab_th[i], NULL, &states, p))
 			return (printerr(THDERR));
 		pthread_detach(g->tab_th[i]);
-		usleep(1000);
+		usleep(100);
 		i++;
 	}
 	return (0);
