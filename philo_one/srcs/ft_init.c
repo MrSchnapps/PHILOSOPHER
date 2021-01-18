@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:11:21 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 12:38:16 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static int	mut_init(t_glob *g)
 {
 	int i;
 
+	g->is_die = 0;
+	g->die_tester = 0;
 	if (!(g->tab_th = (pthread_t *)malloc(g->nop * sizeof(pthread_t))))
 		return (printerr(MERR));
 	pthread_mutex_init(&g->eat_max_m, NULL);
@@ -58,8 +60,6 @@ int			ft_init(t_glob *g)
 	int i;
 
 	i = -1;
-	g->is_die = 0;
-	g->die_tester = 0;
 	if (g->notepme > 0)
 		g->meals_max_count = 0;
 	else
@@ -74,6 +74,7 @@ int			ft_init(t_glob *g)
 		g->phil[i].l_fork = i;
 		g->phil[i].is_eating = 0;
 		g->phil[i].nb_of_eat = 0;
+		g->phil[i].last_eat = 0;
 		if (i == 0)
 			g->phil[i].r_fork = g->nop - 1;
 		else
