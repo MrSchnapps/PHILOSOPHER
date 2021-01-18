@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 22:22:05 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 18:00:59 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 13:58:43 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				ft_print_end(t_phil *p, int code)
 
 	if (!p->glob->is_die)
 	{
-		if (get_time(&cur_time, p->glob->time_start) < 0)
+		if (get_time(&cur_time, p->glob) < 0)
 			return (TIMERR);
 		if (code == 1)
 		{
@@ -66,10 +66,10 @@ int				ft_print(t_phil *p, char *msg)
 
 	if (p->glob->die_tester)
 		return (1);
-	if (get_time(&cur_time, p->glob->time_start) < 0)
+	if (get_time(&cur_time, p->glob) < 0)
 		return (TIMERR);
 	if (!(str = print_join((int)cur_time, p->order, msg)))
-		return (printerr(MERR));
+		return (printerr(MERR, p->glob));
 	write(1, str, ft_strlen(str));
 	free(str);
 	return (0);
@@ -82,18 +82,19 @@ int				ft_print_eat(t_phil *p, char *msg)
 
 	if (p->glob->die_tester)
 		return (1);
-	if (get_time(&cur_time, p->glob->time_start) < 0)
+	if (get_time(&cur_time, p->glob) < 0)
 		return (TIMERR);
 	p->last_eat = cur_time;
 	if (!(str = print_join((int)cur_time, p->order, msg)))
-		return (printerr(MERR));
+		return (printerr(MERR, p->glob));
 	write(1, str, ft_strlen(str));
 	free(str);
 	return (0);
 }
 
-int				printerr(int ret)
+int				printerr(int ret, t_glob *g)
 {
+	sem_wait(g->print_sem);
 	if (ret == MERR)
 		ft_putendl_fd("Memory error", 2);
 	else if (ret == TIMERR)
@@ -104,5 +105,6 @@ int				printerr(int ret)
 		ft_putendl_fd("Wrong number of arguments", 2);
 	else if (ret == INVVAL)
 		ft_putendl_fd("Invalid value in arguments", 2);
+	g->is_die = 1;
 	return (ret);
 }

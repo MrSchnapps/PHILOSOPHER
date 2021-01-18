@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 12:42:09 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 13:57:56 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 int			parse_args(int argc, char **argv, t_glob *g)
 {
 	if (argc < 5 || argc > 6)
-		return (printerr(INVNB));
+		return (printerr(INVNB, g));
 	if ((g->nop = ft_atoi(argv[1])) < 2
 		|| (g->ttd = ft_atoi(argv[2])) < 60
 		|| (g->tte = ft_atoi(argv[3])) < 60
 		|| (g->tts = ft_atoi(argv[4])) < 60)
-		return (printerr(INVVAL));
+		return (printerr(INVVAL, g));
 	if (g->nop > 200)
-		return (printerr(INVVAL));
+		return (printerr(INVVAL, g));
 	if (argc == 5)
 		g->notepme = -1;
 	else
 	{
 		if ((g->notepme = ft_atoi(argv[5])) <= 0)
-			return (printerr(INVVAL));
+			return (printerr(INVVAL, g));
 	}
 	return (0);
 }
@@ -36,7 +36,10 @@ int			parse_args(int argc, char **argv, t_glob *g)
 static int	init_after(t_glob *g)
 {
 	if (!(g->tab_th = (pthread_t *)malloc(g->nop * sizeof(pthread_t))))
-		return (printerr(MERR));
+	{
+		free(g->phil);
+		return (printerr(MERR, g));
+	}
 	sem_unlink("forks");
 	g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop);
 	sem_unlink("print");
@@ -59,7 +62,7 @@ int			ft_init(t_glob *g)
 		g->meals_max_count = -2;
 	g->tab_th = NULL;
 	if (!(g->phil = (t_phil *)malloc(g->nop * sizeof(t_phil))))
-		return (printerr(MERR));
+		return (printerr(MERR, g));
 	while (i < g->nop)
 	{
 		g->phil[i].glob = g;
