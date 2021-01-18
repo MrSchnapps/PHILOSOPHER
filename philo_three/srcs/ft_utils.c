@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:03:11 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:23:39 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 17:36:51 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int		free_all(t_glob *g, int err)
 		free(g->tab_pid);
 	sem_unlink("forks");
 	sem_unlink("print");
-	sem_close(g->forks_sem);
-	sem_close(g->print_sem);
 	if (g->phil)
 		free(g->phil);
 	exit(err);

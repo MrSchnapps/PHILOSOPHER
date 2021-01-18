@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:32:30 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:02:45 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 18:10:46 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 # define PHILO_ONE_H
 
 # include <pthread.h>
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <string.h>
 # include <sys/time.h>
 
 # define SUCCESS	0

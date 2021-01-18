@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 21:54:38 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:32:22 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 18:14:58 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 # define PHILO_TWO_H
 
 # include <pthread.h>
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <string.h>
 # include <sys/time.h>
 # include <sys/stat.h>
 # include <semaphore.h>

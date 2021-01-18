@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 22:22:05 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 17:17:47 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 18:00:59 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static char		*print_join(int time, int order, char *msg)
 int				ft_print_end(t_phil *p, int code)
 {
 	long long unsigned int	cur_time;
+
 	if (!p->glob->is_die)
 	{
 		if (get_time(&cur_time, p->glob->time_start) < 0)
@@ -63,15 +64,14 @@ int				ft_print(t_phil *p, char *msg)
 	long long unsigned int	cur_time;
 	char					*str;
 
-	if (!p->glob->die_tester)
-	{
-		if (get_time(&cur_time, p->glob->time_start) < 0)
-			return (TIMERR);
-		if (!(str = print_join((int)cur_time, p->order, msg)))
-			return (printerr(MERR));
-		write(1, str, ft_strlen(str));
-		free(str);
-	}
+	if (p->glob->die_tester)
+		return (1);
+	if (get_time(&cur_time, p->glob->time_start) < 0)
+		return (TIMERR);
+	if (!(str = print_join((int)cur_time, p->order, msg)))
+		return (printerr(MERR));
+	write(1, str, ft_strlen(str));
+	free(str);
 	return (0);
 }
 
@@ -80,16 +80,15 @@ int				ft_print_eat(t_phil *p, char *msg)
 	long long unsigned int	cur_time;
 	char					*str;
 
-	if (!p->glob->die_tester)
-	{
-		if (get_time(&cur_time, p->glob->time_start) < 0)
-			return (TIMERR);
-		p->last_eat = cur_time;
-		if (!(str = print_join((int)cur_time, p->order, msg)))
-			return (printerr(MERR));
-		write(1, str, ft_strlen(str));
-		free(str);
-	}
+	if (p->glob->die_tester)
+		return (1);
+	if (get_time(&cur_time, p->glob->time_start) < 0)
+		return (TIMERR);
+	p->last_eat = cur_time;
+	if (!(str = print_join((int)cur_time, p->order, msg)))
+		return (printerr(MERR));
+	write(1, str, ft_strlen(str));
+	free(str);
 	return (0);
 }
 

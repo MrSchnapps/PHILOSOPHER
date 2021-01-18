@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:31:14 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/14 16:53:27 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/14 18:14:01 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 # define PHILO_THREE_H
 
 # include <pthread.h>
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <string.h>
 # include <sys/time.h>
 # include <sys/stat.h>
 # include <semaphore.h>
