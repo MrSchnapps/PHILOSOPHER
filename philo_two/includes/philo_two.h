@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 21:54:38 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 13:57:14 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 14:08:52 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define THDERR 4
 # define INVNB 5
 # define INVVAL 6
+# define SEMERR 1
 
 typedef struct	s_phil
 {
