@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:03:11 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 13:43:19 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 15:41:55 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ int		get_start_time(long long unsigned int *time, t_glob *g)
 int		free_all(t_glob *g, int err)
 {
 	g->die_tester = 1;
+	usleep(100);
 	sem_unlink("forks");
-	sem_unlink("print");
 	sem_unlink("eat_max");
 	if (g->tab_th)
 		free(g->tab_th);
 	if (g->phil)
 		free(g->phil);
+	sem_unlink("print");
 	return (err);
 }
 

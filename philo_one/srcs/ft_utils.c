@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:03:11 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 13:26:26 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 15:39:08 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,19 @@ int		free_all(t_glob *g, int err)
 	int i;
 
 	i = 0;
+	usleep(100);
 	if (g->forks_m)
 	{
 		while (i < g->nop)
 			pthread_mutex_destroy(&g->forks_m[i++]);
 		free(g->forks_m);
 	}
-	pthread_mutex_destroy(&g->print_m);
 	pthread_mutex_destroy(&g->eat_max_m);
 	if (g->phil)
 		free(g->phil);
 	if (g->tab_th)
 		free(g->tab_th);
+	pthread_mutex_destroy(&g->print_m);
 	return (err);
 }
 
