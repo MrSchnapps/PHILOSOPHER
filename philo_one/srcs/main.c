@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:19:44 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 16:01:02 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 17:38:09 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static void		*checker_death(void *arg)
 	
 	p = (t_phil *)arg;
 	g = p->glob;
-	while (!g->is_die)
+	while (!g->die_tester)
 	{
 		if (get_time(&cur_time, g))
 			return ((void *)TIMERR);
-		if (!g->is_die && !p->is_eating && cur_time > (g->ttd + p->last_eat))
+		if (!p->is_eating && cur_time > (g->ttd + p->last_eat))
 		{
 			g->die_tester = 1;
 			pthread_mutex_lock(&g->print_m);
