@@ -6,7 +6,7 @@
 /*   By: judecuyp <judecuyp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:02:23 by judecuyp          #+#    #+#             */
-/*   Updated: 2021/01/18 13:57:56 by judecuyp         ###   ########.fr       */
+/*   Updated: 2021/01/18 14:12:51 by judecuyp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,22 @@ int			parse_args(int argc, char **argv, t_glob *g)
 
 static int	init_after(t_glob *g)
 {
+	g->is_die = 0;
+	g->die_tester = 0;
 	if (!(g->tab_th = (pthread_t *)malloc(g->nop * sizeof(pthread_t))))
 	{
 		free(g->phil);
 		return (printerr(MERR, g));
 	}
 	sem_unlink("forks");
-	g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop);
+	if ((g->forks_sem = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, g->nop)) == SEM_FAILED)
+		return (printerr(SEMERR, g));
 	sem_unlink("print");
-	g->print_sem = sem_open("print", O_CREAT | O_EXCL, S_IRWXU, 1);
+	if ((g->print_sem = sem_open("print", O_CREAT | O_EXCL, S_IRWXU, 1)) == SEM_FAILED)
+		return (printerr(SEMERR, g));
 	sem_unlink("eat_max");
-	g->eat_max_sem = sem_open("eat_max", O_CREAT | O_EXCL, S_IRWXU, 1);
+	if ((g->eat_max_sem = sem_open("eat_max", O_CREAT | O_EXCL, S_IRWXU, 1)) == SEM_FAILED)
+		return (printerr(SEMERR, g));
 	return (0);
 }
 
@@ -54,8 +59,6 @@ int			ft_init(t_glob *g)
 	int i;
 
 	i = 0;
-	g->is_die = 0;
-	g->die_tester = 0;
 	if (g->notepme > 0)
 		g->meals_max_count = 0;
 	else
@@ -71,5 +74,10 @@ int			ft_init(t_glob *g)
 		g->phil[i].last_eat = 0;
 		i++;
 	}
-	return (init_after(g));
+	if (init_after(g))
+	{
+		free(g->phil);
+		return (ERR);
+	}
+	return (0);
 }
